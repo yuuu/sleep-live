@@ -1,0 +1,22 @@
+# MEMO: https://o296.com/2020/12/06/ruby-lambda.html
+version: "3"
+services:
+  app:
+    image: amazon/aws-sam-cli-build-image-ruby2.7
+    volumes:
+      - .:/var/task
+    command:
+      - /bin/bash
+      - -c
+      - |
+        # デプロイパッケージを作成
+        for function in "is_sleeping"
+        do
+          cd $$function
+          mkdir -p ./.build
+          cd .build
+          ls | grep -v -e vendor | xargs -r rm -fr
+          cp /var/task/$$function/app.rb /var/task/$$function/.build
+          cp /var/task/$$function/Gemfile /var/task/$$function/.build
+          bundle install --path="vendor/bundle"
+        done

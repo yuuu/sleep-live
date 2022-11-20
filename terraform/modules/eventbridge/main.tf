@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_event_rule" "scheduled_event" {
   name                = "${var.common.app_name}-${var.common.env}-scheduled-event"
-  schedule_expression = "cron(30 9 * * ? *)"
+  schedule_expression = "cron(30 0 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "scheduled_event_target" {

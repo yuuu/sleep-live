@@ -36,6 +36,16 @@ resource "aws_lambda_function" "is_sleeping" {
   source_code_hash = data.archive_file.is_sleeping.output_base64sha256
   runtime          = "ruby2.7"
   timeout          = 60
+
+  environment {
+    variables = {
+      SORACOM_AUTH_KEY_ID       = var.soracom.auth_key_id
+      SORACOM_AUTH_KEY_SECRET   = var.soracom.auth_key_secret
+      SORACOM_SORACAM_DEVICE_ID = var.soracom.soracam_device_id
+      SLACK_API_TOKEN           = var.slack.api_token
+      SLACK_CHANNEL             = var.slack.channel
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "logs" {

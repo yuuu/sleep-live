@@ -3,8 +3,10 @@ terraform {
 }
 
 module "lambda" {
-  source = "../../modules/lambda"
-  common = var.common
+  source  = "../../modules/lambda"
+  common  = var.common
+  soracom = var.soracom
+  slack   = var.slack
 }
 
 

@@ -6,3 +6,11 @@ variable "common" {
     env_full = "development"
   }
 }
+
+variable "soracom" {
+  type = map(any)
+}
+
+variable "slack" {
+  type = map(any)
+}

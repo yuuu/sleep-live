@@ -20,7 +20,6 @@ resource "aws_s3_bucket_public_access_block" "hosting_access_block" {
 
 data "aws_iam_policy_document" "hosting_policy_document" {
   statement {
-    sid    = "Allow CloudFront"
     effect = "Allow"
     principals {
       type        = "AWS"

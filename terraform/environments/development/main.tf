@@ -15,10 +15,12 @@ module "cloudfront" {
 }
 
 module "lambda" {
-  source  = "../../modules/lambda"
-  common  = var.common
-  soracom = var.soracom
-  slack   = var.slack
+  source         = "../../modules/lambda"
+  common         = var.common
+  soracom        = var.soracom
+  slack          = var.slack
+  hosting_bucket = module.s3.hosting_bucket
+  hosting_dst    = module.cloudfront.hosting_dst
 }
 
 

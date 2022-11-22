@@ -1,6 +1,7 @@
 require 'json'
 require 'faraday'
 require 'slack-ruby-client'
+require 'aws-sdk-s3'
 
 Slack.configure do |config|
   config.token = ENV['SLACK_API_TOKEN']
@@ -60,20 +61,27 @@ def sora_cam_stream(client)
 end
 
 def start_live(url)
+  s3_bucket.put_object(key: 'url.json', body: { url: url }.to_json)
+
   client = Slack::Web::Client.new
-  client.chat_postMessage(channel: ENV['SLACK_CHANNEL'], attachments: attachments(url), as_user: true)
+  client.chat_postMessage(channel: ENV['SLACK_CHANNEL'], attachments: attachments, as_user: true)
 end
 
-def attachments(url)
+def attachments
   [
     {
       color: '#1e2cc9',
       blocks: [
         {
           type: :section,
-          text: { type: :mrkdwn, text: "LIVEがはじまるよ！\n#{url}" }
+          text: { type: :mrkdwn, text: "LIVEがはじまるよ！\nhttps://#{ENV.fetch('AWS_CLOUDFRONT_DOMAIN', '')}" }
         }
       ]
     }
   ]
+end
+
+def s3_bucket
+  Aws::S3::Resource.new(region: 'ap-northeast-1')
+                   .bucket(ENV.fetch('AWS_S3_HOSTING_BUCKET_NAME'))
 end

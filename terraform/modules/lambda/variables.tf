@@ -7,3 +7,9 @@ variable "soracom" {
 variable "slack" {
   type = map(any)
 }
+variable "hosting_bucket" {
+  type = map(any)
+}
+variable "hosting_dst" {
+  type = map(any)
+}

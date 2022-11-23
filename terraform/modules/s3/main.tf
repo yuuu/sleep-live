@@ -39,3 +39,10 @@ resource "aws_s3_bucket_policy" "hosting_policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
   policy = data.aws_iam_policy_document.hosting_policy_document.json
 }
+
+resource "aws_s3_object" "object" {
+  bucket = aws_s3_bucket.hosting_bucket.id
+  key    = "index.html"
+  source = "../../modules/s3/index.html"
+  content_type = "text/html"
+}

@@ -9,3 +9,7 @@ variable "hosting_bucket" {
 variable "origin_access_identity" {
   type = map(any)
 }
+
+variable "acl" {
+  type = map(any)
+}

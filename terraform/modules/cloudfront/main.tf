@@ -1,8 +1,7 @@
 resource "aws_cloudfront_distribution" "hosting" {
   enabled = true
 
-  // AWS WAFのルールを適用させる
-  // web_acl_id      = "${aws_waf_web_acl.allow_only_timers_vpn.id}"
+  web_acl_id = var.acl.id
 
   origin {
     domain_name = var.hosting_bucket.bucket_regional_domain_name

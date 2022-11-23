@@ -74,7 +74,7 @@ def attachments
       blocks: [
         {
           type: :section,
-          text: { type: :mrkdwn, text: "LIVEがはじまるよ！\nhttps://#{ENV.fetch('AWS_CLOUDFRONT_DOMAIN', '')}" }
+          text: { type: :mrkdwn, text: "LIVEがはじまるよ！\nhttps://#{ENV.fetch('AWS_CLOUDFRONT_DOMAIN', '')}\n※社内IPからのみ視聴可能です" }
         }
       ]
     }

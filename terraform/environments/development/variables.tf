@@ -14,3 +14,7 @@ variable "soracom" {
 variable "slack" {
   type = map(any)
 }
+
+variable "allow_ip" {
+  type = string
+}

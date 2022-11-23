@@ -7,11 +7,18 @@ module "s3" {
   common = var.common
 }
 
+module "waf" {
+  source   = "../../modules/waf"
+  common   = var.common
+  allow_ip = var.allow_ip
+}
+
 module "cloudfront" {
   source                 = "../../modules/cloudfront"
   common                 = var.common
   hosting_bucket         = module.s3.hosting_bucket
   origin_access_identity = module.s3.origin_access_identity
+  acl                    = module.waf.acl
 }
 
 module "lambda" {
